@@ -1,4 +1,0 @@
-# ninja log v5
-1	31	0	/home/jsy/learn/myrpc/rpc/build/CMakeFiles/cmake.verify_globs	138db353c5e34ac5
-1	54	1734953817781641572	CMakeFiles/rpc.dir/src/RpcApplication.o	dba6401f7c18af13
-54	206	1734953817933642377	librpc.a	40f97fced2ada03f

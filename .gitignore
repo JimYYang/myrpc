@@ -1,6 +1,5 @@
 # Ignore build directories
-/build/
-/build*/
+rpc/build
 .cache
 
 # Ignore CMake generated files

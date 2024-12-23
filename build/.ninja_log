@@ -1,0 +1,5 @@
+# ninja log v5
+0	31	0	/home/jsy/learn/myrpc/build/CMakeFiles/cmake.verify_globs	b6eb2b1e31018b
+43	191	1734790233582193396	rpc/librpc.a	629e2e78cc2726f
+0	42	1734790233434192596	rpc/CMakeFiles/rpc.dir/src/1.cpp.o	2146b27f75a5453b
+0	30	0	/home/jsy/learn/myrpc/build/CMakeFiles/cmake.verify_globs	b6eb2b1e31018b

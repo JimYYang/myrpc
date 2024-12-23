@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/jsy/learn/myrpc/rpc/build",
-  "command": "/usr/bin/c++ -I/home/jsy/learn/myrpc/rpc/include -o CMakeFiles/rpc.dir/src/RpcApplication.o -c /home/jsy/learn/myrpc/rpc/src/RpcApplication.cpp",
-  "file": "/home/jsy/learn/myrpc/rpc/src/RpcApplication.cpp"
-}
-]
