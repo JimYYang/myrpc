@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/jsy/learn/myrpc/build",
-  "command": "/usr/bin/c++ -I/home/jsy/learn/myrpc/rpc/include -O3 -DNDEBUG -std=c++20 -o rpc/CMakeFiles/rpc.dir/src/1.cpp.o -c /home/jsy/learn/myrpc/rpc/src/1.cpp",
-  "file": "/home/jsy/learn/myrpc/rpc/src/1.cpp"
-}
-]
