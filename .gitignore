@@ -1,0 +1,55 @@
+# Ignore build directories
+/build/
+/build*/
+
+# Ignore CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Ignore object files and executables
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.exe
+*.out
+
+# Ignore editor and IDE files
+*.swp
+*.swo
+*.vim
+.vscode/
+.idea/
+*.user
+*.workspace
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.bak
+*.~*
+
+# Ignore generated documentation
+/docs/doxygen/
+
+# Ignore dependency files
+*.d
+*.dep
+*.Tpo
+*.Plo
+*.a
+
+# Ignore archive files
+*.tar
+*.gz
+*.zip
+*.rar
+*.7z
+*.bz2
+
+# Ignore core dumps
+core
+*.core
