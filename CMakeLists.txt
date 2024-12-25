@@ -10,3 +10,4 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 project(myrpc LANGUAGES CXX)
 
 add_subdirectory(rpc)
+add_subdirectory(tests)
