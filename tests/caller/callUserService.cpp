@@ -1,4 +1,3 @@
-#include <iostream>
 #include <rpc/RpcApplication.hpp>
 #include <user.pb.h>
 
