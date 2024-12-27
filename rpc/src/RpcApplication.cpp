@@ -6,7 +6,7 @@
 
 void showArgsHelp()
 {
-    // spdlog::error("format: command -i <configFile>");
+    spdlog::error("format: command -i <configFile>");
 }
 
 void RpcApplication::init(int argc, char **argv)
@@ -14,7 +14,7 @@ void RpcApplication::init(int argc, char **argv)
     if (argc < 2)
     {
         showArgsHelp();
-        exit(EXIT_FAILURE);
+        std::exit(EXIT_FAILURE);
     }
 
     int opt;
@@ -23,22 +23,25 @@ void RpcApplication::init(int argc, char **argv)
     {
         switch (opt)
         {
-            case 'i':
-                fileName = optarg;
-                break;
-            case ':':
-                spdlog::error("Missing <configFile>");
-                showArgsHelp();
-                exit(EXIT_FAILURE);
-            case '?':
-                spdlog::error("Unknown option: {}", char(optopt));
-                break;
-            default:
-                break;
+        case 'i':
+            fileName = optarg;
+            break;
+        case ':':
+            spdlog::error("Missing <configFile>");
+            showArgsHelp();
+            std::exit(EXIT_FAILURE);
+        case '?':
+            spdlog::error("Unknown option: {}", char(optopt));
+            showArgsHelp();
+            std::exit(EXIT_FAILURE);
+            break;
+        default:
+            break;
         }
     }
 
     // 开始加载配置文件
+    config_.loadConfigFile(fileName);
 }
 
 RpcApplication &RpcApplication::getInstance()

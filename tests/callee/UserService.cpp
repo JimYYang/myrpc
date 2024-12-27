@@ -1,9 +1,10 @@
-#include "rpc/RpcApplication.hpp"
 #include <google/protobuf/service.h>
 #include <google/protobuf/stubs/callback.h>
 #include <string>
 #include <user.pb.h>
 #include <spdlog/spdlog.h>
+
+#include <rpc/RpcApplication.hpp>
 
 /**
  * @brief UserService原来是一个本地服务，提供了进程内的本地方法: Login和GetFriendLists
@@ -15,7 +16,7 @@ public:
     bool Login(std::string name, std::string pwd)
     {
         spdlog::info("Doing local service: Login.");
-        spdlog::info("name: {}, pwd: {}", pwd, name);
+        spdlog::info("name: {}, pwd: {}.", pwd, name);
         return false;
     }
 
@@ -51,7 +52,7 @@ public:
 
 int main(int argc, char **argv)
 {
-    // 调用框架的初始化操作
+    // 调用框架的初始化操作 
     RpcApplication::init(argc, argv);
 
     return 0;
