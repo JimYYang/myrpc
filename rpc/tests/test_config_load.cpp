@@ -6,7 +6,7 @@
 #include <string>
 
 // 测试用的配置文件路径
-const std::string TEST_CONFIG_FILE = "test_config.json";
+const std::string TEST_CONFIG_FILE = "/home/jsy/learn/myrpc/build/rpc/tests/test_config.json";
 
 // 测试前准备：创建一个临时的 JSON 配置文件
 void createTestConfigFile() {

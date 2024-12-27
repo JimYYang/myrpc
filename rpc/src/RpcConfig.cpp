@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iostream>
 #include <rpc/RpcConfig.hpp>
 #include <spdlog/spdlog.h>
 
@@ -21,6 +22,11 @@ void RpcConfig::loadConfigFile(const std::string &configFile)
         flattenJson(config, "");
 
         spdlog::info("Configuration loaded successfully.");
+        spdlog::info("{}", configMap_["rpc.ip"]);
+        spdlog::info("{}", configMap_["rpc.port"]);
+        spdlog::info("{}", configMap_["zookeeper.ip"]);
+        spdlog::info("{}", configMap_["zookeeper.port"]);
+        
     }
     catch (const json::exception &e)
     {

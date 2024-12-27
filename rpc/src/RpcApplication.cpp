@@ -3,6 +3,7 @@
 #include <rpc/RpcApplication.hpp>
 #include <spdlog/spdlog.h>
 #include <string>
+#include <rpc/Logger.hpp>
 
 void showArgsHelp()
 {
@@ -16,6 +17,8 @@ void RpcApplication::init(int argc, char **argv)
         showArgsHelp();
         std::exit(EXIT_FAILURE);
     }
+
+    Logger::init();
 
     int opt;
     std::string fileName;
