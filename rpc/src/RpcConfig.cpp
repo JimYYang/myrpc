@@ -17,6 +17,9 @@ void RpcConfig::loadConfigFile(const std::string &configFile)
         json config;
         file >> config;
 
+        // 将 JSON 转换为平铺的键值对
+        flattenJson(config, "");
+
         spdlog::info("Configuration loaded successfully.");
     }
     catch (const json::exception &e)
@@ -37,7 +40,13 @@ void RpcConfig::loadConfigFile(const std::string &configFile)
 }
 
 // 得到配置信息
-std::string RpcConfig::getConfig(const std::string &key) {}
+std::string RpcConfig::getConfig(const std::string &key) {
+    auto it = configMap_.find(key);
+    if (it != configMap_.end()) {
+        return it->second;
+    }
+    return ""; // 返回空字符串表示未找到
+}
 
 // 递归函数：将嵌套的 JSON 转换为平铺的键值对
 void RpcConfig::flattenJson(const json &j, const std::string &prefix)
@@ -52,8 +61,15 @@ void RpcConfig::flattenJson(const json &j, const std::string &prefix)
         }
         else
         {
-            // 否则直接存储为字符串
-            configMap_[key] = it->dump(); // 转换为字符串存储
+            // 如果值是字符串，直接存储值；否则转换为字符串
+            if (it->is_string())
+            {
+                configMap_[key] = it->get<std::string>();
+            }
+            else
+            {
+                configMap_[key] = it->dump(); // 转换为字符串存储
+            }
         }
     }
 }

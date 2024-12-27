@@ -1,6 +1,5 @@
 file(GLOB_RECURSE srcs CONFIGURE_DEPENDS ./*.cpp ../include/*.cc)
 add_executable(provider ${srcs})
-message("provider ${srcs}")
 target_link_libraries(provider rpc)
 target_include_directories(provider PRIVATE ../include)
 
