@@ -1,9 +1,9 @@
 #include <unistd.h>
 
+#include <rpc/Logger.hpp>
 #include <rpc/RpcApplication.hpp>
 #include <spdlog/spdlog.h>
 #include <string>
-#include <rpc/Logger.hpp>
 
 void showArgsHelp()
 {

@@ -1,7 +1,7 @@
 #include <memory>
 #include <spdlog/logger.h>
-#include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
+#include <spdlog/spdlog.h>
 
 class Logger
 {
@@ -12,5 +12,4 @@ public:
 
 private:
     inline static std::shared_ptr<spdlog::logger> logger_ = nullptr;
-
 };

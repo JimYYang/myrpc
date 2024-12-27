@@ -1,8 +1,8 @@
 #pragma once
 
+#include <nlohmann/json.hpp>
 #include <string>
 #include <unordered_map>
-#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 
@@ -19,5 +19,5 @@ public:
 private:
     std::unordered_map<std::string, std::string> configMap_;
     // 递归函数：将嵌套的 JSON 转换为平铺的键值对
-    void flattenJson(const json& j, const std::string& prefix);
+    void flattenJson(const json &j, const std::string &prefix);
 };

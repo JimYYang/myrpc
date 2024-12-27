@@ -10,7 +10,7 @@ public:
     static RpcApplication &getInstance();
 
 private:
-    RpcApplication(){}
+    RpcApplication() {}
     RpcApplication(const RpcApplication &) = delete;
     RpcApplication(RpcApplication &&) = delete;
 

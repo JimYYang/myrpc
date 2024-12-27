@@ -1,5 +1,4 @@
 #include <fstream>
-#include <iostream>
 #include <rpc/RpcConfig.hpp>
 #include <spdlog/spdlog.h>
 
@@ -22,11 +21,6 @@ void RpcConfig::loadConfigFile(const std::string &configFile)
         flattenJson(config, "");
 
         spdlog::info("Configuration loaded successfully.");
-        spdlog::info("{}", configMap_["rpc.ip"]);
-        spdlog::info("{}", configMap_["rpc.port"]);
-        spdlog::info("{}", configMap_["zookeeper.ip"]);
-        spdlog::info("{}", configMap_["zookeeper.port"]);
-        
     }
     catch (const json::exception &e)
     {
@@ -46,9 +40,11 @@ void RpcConfig::loadConfigFile(const std::string &configFile)
 }
 
 // 得到配置信息
-std::string RpcConfig::getConfig(const std::string &key) {
+std::string RpcConfig::getConfig(const std::string &key)
+{
     auto it = configMap_.find(key);
-    if (it != configMap_.end()) {
+    if (it != configMap_.end())
+    {
         return it->second;
     }
     return ""; // 返回空字符串表示未找到
