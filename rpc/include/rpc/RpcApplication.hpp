@@ -8,6 +8,7 @@ class RpcApplication
 public:
     static void init(int argc, char **argv);
     static RpcApplication &getInstance();
+    static RpcConfig &getConfig();
 
 private:
     RpcApplication() {}

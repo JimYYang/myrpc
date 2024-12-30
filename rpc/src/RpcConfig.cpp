@@ -1,6 +1,9 @@
 #include <fstream>
+#include <optional>
 #include <rpc/RpcConfig.hpp>
 #include <spdlog/spdlog.h>
+
+using json = nlohmann::json;
 
 // 解析加载配置文件
 void RpcConfig::loadConfigFile(const std::string &configFile)
@@ -40,14 +43,18 @@ void RpcConfig::loadConfigFile(const std::string &configFile)
 }
 
 // 得到配置信息
-std::string RpcConfig::getConfig(const std::string &key)
+std::optional<std::string> RpcConfig::getConfig(const std::string &key)
 {
     auto it = configMap_.find(key);
     if (it != configMap_.end())
     {
+        if ((it->second).empty())
+        {
+            return std::nullopt;
+        }
         return it->second;
     }
-    return ""; // 返回空字符串表示未找到
+    return std::nullopt; // 返回空字符串表示未找到
 }
 
 // 递归函数：将嵌套的 JSON 转换为平铺的键值对
