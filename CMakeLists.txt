@@ -15,6 +15,5 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(CTest)
 endif()
 
-
 add_subdirectory(rpc)
 add_subdirectory(tests)

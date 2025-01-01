@@ -149,17 +149,13 @@ void RpcProvider::onMessage(const muduo::net::TcpConnectionPtr&conn,
 
     // 获取rpc方法的字节流数据
     std::string argsStr = recvBuf.substr(4 + headerSize, argsSize);
-    std::cout << "1111" << std::endl;
 
-    spdlog::info("+++++++++++++++++");
-
-    spdlog::debug("headerSize: {}.", headerSize);
-    spdlog::debug("rpcHeaderStr: {}", rpcHeaderStr);
-    spdlog::debug("servieName: {}", serviceName);
-    spdlog::debug("methodName: {}", methodName);
-    spdlog::debug("argsSize: {}", argsSize);
-    spdlog::debug("argsStr: {}", argsStr);
-    spdlog::info("+++++++++++++++++");
+    spdlog::debug("provider: headerSize: {}.", headerSize);
+    spdlog::debug("provider: rpcHeaderStr: {}", rpcHeaderStr);
+    spdlog::debug("provider: servieName: {}", serviceName);
+    spdlog::debug("provider: methodName: {}", methodName);
+    spdlog::debug("provider: argsSize: {}", argsSize);
+    spdlog::debug("provider: argsStr: {}", argsStr);
 
     // 获取service对象和method对象
     auto it = serviceMap_.find(serviceName);
@@ -200,7 +196,6 @@ void RpcProvider::onMessage(const muduo::net::TcpConnectionPtr&conn,
                                                                     &RpcProvider::sendRpcResponse, 
                                                                     conn, response);
     service->CallMethod(method, nullptr, request, response, done);
-
 }
 
 // Closure的回调操作，用于序列化rpc的response和网络发送

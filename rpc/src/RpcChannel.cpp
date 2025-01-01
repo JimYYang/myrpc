@@ -62,14 +62,12 @@ void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
         return;
     }
 
-    spdlog::info("-------------------");
-    spdlog::debug("headerSize: {}.", headerSize);
-    spdlog::debug("rpcHeaderStr: {}", rpcHeaderStr);
-    spdlog::debug("servieName: {}", serviceName);
-    spdlog::debug("methodName: {}", methodName);
-    spdlog::debug("argsSize: {}", argsSize);
-    spdlog::debug("argsStr: {}", argsStr);
-    spdlog::info("-------------------");
+    spdlog::debug("consumer: headerSize: {}.", headerSize);
+    spdlog::debug("consumer: rpcHeaderStr: {}", rpcHeaderStr);
+    spdlog::debug("consumer: servieName: {}", serviceName);
+    spdlog::debug("consumer: methodName: {}", methodName);
+    spdlog::debug("consumer: argsSize: {}", argsSize);
+    spdlog::debug("consumer: argsStr: {}", argsStr);
 
     // 组织待发送的rpc请求的字符串
     std::string sendRpcStr;

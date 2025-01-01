@@ -1,5 +1,6 @@
 include(FetchContent)
 
+# 要么直接安装，要么这种方式/git submodule
 FetchContent_Declare(
     catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2.git
