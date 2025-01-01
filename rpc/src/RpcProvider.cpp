@@ -149,6 +149,17 @@ void RpcProvider::onMessage(const muduo::net::TcpConnectionPtr&conn,
 
     // 获取rpc方法的字节流数据
     std::string argsStr = recvBuf.substr(4 + headerSize, argsSize);
+    std::cout << "1111" << std::endl;
+
+    spdlog::info("+++++++++++++++++");
+
+    spdlog::debug("headerSize: {}.", headerSize);
+    spdlog::debug("rpcHeaderStr: {}", rpcHeaderStr);
+    spdlog::debug("servieName: {}", serviceName);
+    spdlog::debug("methodName: {}", methodName);
+    spdlog::debug("argsSize: {}", argsSize);
+    spdlog::debug("argsStr: {}", argsStr);
+    spdlog::info("+++++++++++++++++");
 
     // 获取service对象和method对象
     auto it = serviceMap_.find(serviceName);
@@ -188,7 +199,7 @@ void RpcProvider::onMessage(const muduo::net::TcpConnectionPtr&conn,
                                                                     (this, 
                                                                     &RpcProvider::sendRpcResponse, 
                                                                     conn, response);
-    service->CallMethod(method, nullptr, request, response, nullptr);
+    service->CallMethod(method, nullptr, request, response, done);
 
 }
 
@@ -199,6 +210,8 @@ void RpcProvider::sendRpcResponse(const muduo::net::TcpConnectionPtr&conn, googl
     if(response->SerializeToString(&responseStr))
     {
         // 序列化成功后，通过网络把rpc方法执行的结果发送给rpc的调用方
+        // 这个打印是看不出来的，因为protobuf序列化之后中间有\0，不能完整显示出来
+        spdlog::info("send response: {}.", responseStr);
         conn->send(responseStr);
     }
     else

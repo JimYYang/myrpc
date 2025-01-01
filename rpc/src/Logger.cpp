@@ -9,7 +9,8 @@ void Logger::init(const std::string &logFile)
     {
         logger_ = spdlog::basic_logger_mt("Logger", logFile);
         spdlog::set_default_logger(logger_);
-        spdlog::flush_on(spdlog::level::info);
+        spdlog::flush_on(spdlog::level::debug);
+        spdlog::set_level(spdlog::level::debug);
         logger_->info("Logger initialized with file: {}", logFile);
     }
 }

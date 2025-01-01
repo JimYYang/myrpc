@@ -45,8 +45,9 @@ public:
         code->set_errmsg("");
         response->set_sucess(loginResult);
 
-        // 执行回调操作 执行响应对象数据的序列化和网络发送（均有框架完成）
+        // 执行回调操作 执行响应对象数据的序列化和网络发送（均由框架完成）
         done->Run();
+        spdlog::info("hhhhh");
     }
 
 };
