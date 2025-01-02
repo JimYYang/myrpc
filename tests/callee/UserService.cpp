@@ -14,10 +14,18 @@
 class UserService : public fixbug::UserServiceRpc // 使用在rpc服务发布端（rpc服务提供者）
 {
 public:
+    // 具体的业务代码
     bool Login(std::string name, std::string pwd)
     {
         spdlog::info("Doing local service: Login.");
         spdlog::info("name: {}, pwd: {}.", pwd, name);
+        return false;
+    }
+
+    bool Register(uint32_t id, std::string name, std::string pwd)
+    {
+        spdlog::info("Doing local service: Register.");
+        spdlog::info("id: {}, name: {}, pwd: {}.", id, pwd, name);
         return false;
     }
 
@@ -46,6 +54,24 @@ public:
         response->set_sucess(loginResult);
 
         // 执行回调操作 执行响应对象数据的序列化和网络发送（均由框架完成）
+        done->Run();
+    }
+
+    virtual void Register(::google::protobuf::RpcController* controller,
+                       const ::fixbug::RegisterRequest* request,
+                       ::fixbug::RegisterResponse* response,
+                       ::google::protobuf::Closure* done)
+    {
+        uint32_t id = request->id();
+        std::string name = request->name();
+        std::string pwd = request->pwd();
+
+        bool res = Register(id, name, pwd);
+
+        response->mutable_result()->set_errcode(0);
+        response->mutable_result()->set_errmsg("");
+        response->set_sucess(res);
+
         done->Run();
     }
 

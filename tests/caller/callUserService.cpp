@@ -21,11 +21,32 @@ int main(int argc, char **argv)
     // 一次rpc调用完成，读取调用的结果
     if (0 == response.result().errcode())
     {
-        spdlog::info("rpc login response success: {}", response.sucess());
+        spdlog::info("rpc Login response success: {}", response.sucess());
     }
     else
     {
-        spdlog::error("rpc login response error: {}", response.result().errmsg());
+        spdlog::error("rpc Login response error: {}", response.result().errmsg());
     }
+
+    fixbug::RegisterRequest req;
+    req.set_id(2025);
+    req.set_name("jim");
+    req.set_pwd("2025");
+
+    fixbug::RegisterResponse rsp;
+
+    // 以同步的方式发起rpc调用请求，等待返回结果
+    stub.Register(nullptr, &req, &rsp, nullptr);
+
+    // 一次rpc调用完成，读取调用的结果
+    if (0 == rsp.result().errcode())
+    {
+        spdlog::info("rpc Register response success: {}", rsp.sucess());
+    }
+    else
+    {
+        spdlog::error("rpc Register response error: {}", rsp.result().errmsg());
+    }
+    
     return 0;
 }
