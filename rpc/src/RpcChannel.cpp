@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <cstdlib>
 #include <functional>
 #include <memory>
@@ -41,6 +42,7 @@ void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
     else
     {
         spdlog::error("serialize request error!");
+        controller->SetFailed("serialize request error!");
         return;
     }
 
@@ -59,6 +61,7 @@ void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
     else
     {
         spdlog::error("serialize rpc header error!");
+        controller->SetFailed("serialize rpc header error!");
         return;
     }
 
@@ -80,7 +83,10 @@ void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
     if (-1 == clientFd)
     {
         spdlog::error("create socket error! errno: {}, message: {}", errno, strerror(errno));
-        std::exit(EXIT_FAILURE);
+        char errtxt[512] = {0};
+        sprintf(errtxt, "create socket error! errno: %d, message: %s", errno, strerror(errno));
+        controller->SetFailed(errtxt);
+        return;
     }
 
     std::unique_ptr<int, std::function<void(int*)>> clientFdPtr(
@@ -106,7 +112,8 @@ void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
     else
     {
         spdlog::error("rpc ip is EMPTY!");
-        std::exit(EXIT_FAILURE);
+        controller->SetFailed("rpc ip is EMPTY!");
+        return;
     }
 
     auto oport = config.getConfig("rpc.port");
@@ -118,7 +125,8 @@ void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
     else
     {
         spdlog::error("rpc port is EMPTY!");
-        std::exit(EXIT_FAILURE);
+        controller->SetFailed("rpc ip is EMPTY!");
+        return;
     }
 
     struct sockaddr_in serverAddr;
@@ -130,13 +138,19 @@ void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
     if (-1 == connect(clientFd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)))
     {
         spdlog::error("connect error! errno: {}, message: {}", errno, strerror(errno));
-        std::exit(EXIT_FAILURE);
+        char errtxt[512] = {0};
+        sprintf(errtxt, "connect error! errno: %d, message: %s", errno, strerror(errno));
+        controller->SetFailed(errtxt);
+        return;
     }
 
     // 发送rpc请求
     if (-1 == send(clientFd, sendRpcStr.c_str(), sendRpcStr.size(), 0))
     {
         spdlog::error("send error! errno: {}, message: {}", errno, strerror(errno));
+        char errtxt[512] = {0};
+        sprintf(errtxt, "send error! errno: %d, message: %s", errno, strerror(errno));
+        controller->SetFailed(errtxt);
         return;
     }
 
@@ -146,6 +160,9 @@ void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
     if (-1 == (recvSize = recv(clientFd, recvBuf, 1024, 0)))
     {
         spdlog::error("recv error! errno: {}, message: {}", errno, strerror(errno));
+        char errtxt[512] = {0};
+        sprintf(errtxt, "recv error! errno: %d, message: %s", errno, strerror(errno));
+        controller->SetFailed(errtxt);
         return;
     }
 
@@ -154,6 +171,9 @@ void RpcChannel::CallMethod(const google::protobuf::MethodDescriptor* method,
     if (!response->ParseFromArray(recvBuf, recvSize))
     {
         spdlog::error("parse error! responseStr: {}.", recvBuf);
+        char errtxt[512] = {0};
+        sprintf(errtxt, "parse error! responseStr: %s", recvBuf);
+        controller->SetFailed(errtxt);
         return;
     }
 
