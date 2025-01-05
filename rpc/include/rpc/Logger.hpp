@@ -1,19 +1,24 @@
 #include <memory>
-#include <spdlog/logger.h>
-#include <spdlog/async.h>
-#include <spdlog/sinks/daily_file_sink.h>
 #include <spdlog/spdlog.h>
+#include <spdlog/async.h>
+#include <spdlog/sinks/rotating_file_sink.h>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
+#include <string>
 
 class Logger
 {
 public:
-    // 初始化日志器
-    static void init(const std::string &logFileDir = "/home/jsy/learn/myrpc/log/");
+    static void init(const std::string &logFileDir = "/home/jsy/learn/myrpc/log/",
+                     size_t maxFileSize = 50 * 1024 * 1024, // 单文件大小限制
+                     size_t maxFiles = 365);                  // 最大保留文件数
 
-    // 获取日志器
     static std::shared_ptr<spdlog::logger> getLogger();
 
 private:
+    static std::string generateLogFileName(const std::string &logFileDir);
+
     inline static std::shared_ptr<spdlog::logger> logger_ = nullptr;                  // 日志器
     inline static std::shared_ptr<spdlog::details::thread_pool> thread_pool_ = nullptr; // 异步线程池
 };
