@@ -6,6 +6,7 @@ target_link_libraries(rpc PRIVATE spdlog::spdlog_header_only)
 # target_link_libraries(rpc PUBLIC spdlog::spdlog) spdlog：编译为动态库，然后链接的使用方式
 
 target_link_libraries(rpc PUBLIC muduo_net muduo_base)
+target_link_libraries(rpc PUBLIC zookeeper_mt)
 
 if(BUILD_TESTING)
     add_subdirectory(tests)

@@ -25,15 +25,12 @@ void Logger::init(const std::string &logFileDir, size_t maxFileSize, size_t maxF
         std::string logFileName = generateLogFileName(logFileDir);
 
         // 创建旋转日志 sink（限制大小 + 文件编号）
-        auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(
-            logFileName, maxFileSize, maxFiles);
+        auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logFileName, maxFileSize, maxFiles);
 
         // 创建异步日志器
-        logger_ = std::make_shared<spdlog::async_logger>(
-            "Logger",
-            spdlog::sinks_init_list{rotating_sink}, // 单一 sink
-            thread_pool_,
-            spdlog::async_overflow_policy::block); // 阻塞式溢出策略
+        logger_ = std::make_shared<spdlog::async_logger>("Logger", spdlog::sinks_init_list{rotating_sink}, // 单一 sink
+                                                         thread_pool_,
+                                                         spdlog::async_overflow_policy::block); // 阻塞式溢出策略
 
         // 设置默认日志器
         spdlog::set_default_logger(logger_);

@@ -18,6 +18,6 @@ public:
     void NotifyOnCancel(google::protobuf::Closure *callback);
 
 private:
-    bool failed_; // rpc方法执行过程中的状态
+    bool failed_;         // rpc方法执行过程中的状态
     std::string errText_; // rpc方法执行过程中的错误信息
 };

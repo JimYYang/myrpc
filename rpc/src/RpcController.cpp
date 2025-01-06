@@ -28,17 +28,11 @@ void RpcController::SetFailed(const std::string &reason)
     errText_ = reason;
 }
 
-void RpcController::StartCancel()
-{
-
-}
+void RpcController::StartCancel() {}
 
 bool RpcController::IsCanceled() const
 {
     return false;
 }
 
-void RpcController::NotifyOnCancel(google::protobuf::Closure *callback)
-{
-
-}
+void RpcController::NotifyOnCancel(google::protobuf::Closure *callback) {}

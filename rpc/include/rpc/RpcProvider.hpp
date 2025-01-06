@@ -1,15 +1,15 @@
 #pragma once
 
+#include <google/protobuf/descriptor.h>
 #include <google/protobuf/message.h>
 #include <google/protobuf/service.h>
+#include <muduo/base/Timestamp.h>
+#include <muduo/net/Buffer.h>
 #include <muduo/net/Callbacks.h>
-#include <muduo/net/TcpServer.h>
 #include <muduo/net/EventLoop.h>
 #include <muduo/net/InetAddress.h>
 #include <muduo/net/TcpConnection.h>
-#include <muduo/net/Buffer.h>
-#include <muduo/base/Timestamp.h>
-#include <google/protobuf/descriptor.h>
+#include <muduo/net/TcpServer.h>
 #include <string>
 #include <unordered_map>
 
@@ -29,16 +29,15 @@ private:
     // 新的socket连接回调
     void onConnection(const muduo::net::TcpConnectionPtr &conn);
     // 已建立连接用户的读写事件回调
-    void onMessage(const muduo::net::TcpConnectionPtr&conn, muduo::net::Buffer *buf, muduo::Timestamp timestamp);
+    void onMessage(const muduo::net::TcpConnectionPtr &conn, muduo::net::Buffer *buf, muduo::Timestamp timestamp);
     // Closure的回调操作，用于序列化rpc的response和网络发送
-    void sendRpcResponse(const muduo::net::TcpConnectionPtr&conn, google::protobuf::Message *response);
-    
+    void sendRpcResponse(const muduo::net::TcpConnectionPtr &conn, google::protobuf::Message *response);
+
     // 服务类型信息
     struct ServiceInfo
     {
-        google::protobuf::Service *service_; // 保存服务对象
-        std::unordered_map<std::string, const google::protobuf::MethodDescriptor*> methodMap_; // 保存服务方法
-
+        google::protobuf::Service *service_;                                                    // 保存服务对象
+        std::unordered_map<std::string, const google::protobuf::MethodDescriptor *> methodMap_; // 保存服务方法
     };
 
     // 存储注册成功的服务对象和其服务方法的所有信息
