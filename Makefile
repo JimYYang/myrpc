@@ -16,11 +16,11 @@ configure:
 
 .PHONY: run
 run:
-	./build/rpc/answer_app
+	./build/rpc/tests/test_config_load
 
 .PHONY: test
 test:
-	ctest --test-dir build -R "^answer."
+	ctest --test-dir build -R "^rpc."
 
 .PHONY: clean
 clean:
