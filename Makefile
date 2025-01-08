@@ -2,7 +2,6 @@ CMAKE_BUILD_TYPE := Release
 CMAKE_EXPORT_COMPILE_COMMANDS := 1
 GENERATOR := Ninja  # 这里选择 Ninja 作为生成器
 
-
 .PHONY: build
 build: configure
 	cmake --build build --parallel 8
